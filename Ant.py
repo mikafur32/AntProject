@@ -29,6 +29,8 @@ class Ant:
         Generates a random next position on the grid from 0-7
         and updates the position attribute of the ant.
 
+        TODO
+            Verify it is within the boundaries
         Returns
         -------
         NONE
@@ -51,6 +53,7 @@ class Ant:
 
         # TODO
         #   MAKE THIS MORE ELEGANT
+
         nextPosition = random.nextInt(0, 6)
 
         #(+1, -1)(+1, 0)(+1, +1)
