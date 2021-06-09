@@ -54,7 +54,7 @@ class Ant:
         # TODO
         #   MAKE THIS MORE ELEGANT
 
-        nextPosition = random.nextInt(0, 6)
+        nextPosition = random.randint(0, 6)
 
         #(+1, -1)(+1, 0)(+1, +1)
         if nextPosition == 0:
