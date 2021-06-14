@@ -1,5 +1,7 @@
-from World import World
 from Ant import Ant
+from World import World
+from graphics import *
+
 
 def main():
     print("")
@@ -7,10 +9,14 @@ def main():
 
 if __name__ == "__main__":
     main()
-    world = World( 10,10,1)
-    i = 0
-    while(i < 9):
-        i += 1
+    world = World(10, 10, 1)
+    win = GraphWin("World", 100, 100) # create 100 x 100 pixel page
+
+
+
+    while(True):
+
         print(str(world))
         world.nextGeneration()
 
+    win.close()  # Close window when done

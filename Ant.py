@@ -1,4 +1,5 @@
 import random
+from LinkedLists import Node, DLL
 
 
 class Ant:
@@ -20,41 +21,25 @@ class Ant:
     #       A. Releases a "tracker" after every iteration ("life") of the simulation
     #
 
-    def __init__(self, row, column):
+    def __init__(self, row, column, pastPositions = None):
         self.row = row
         self.column = column
+        self.pastPositions = DLL()
+        self.pastPositions.append(Node([self.row, self.column]))
 
     def nextPosition(self):
         '''
-        Generates a random next position on the grid from 0-7
-        and updates the position attribute of the ant.
+        Generates a random next position on the grid from 0-7,
+        updates the position attribute of the ant,
+        and appends the position to the end of pastPositions.
 
-        TODO
-            Verify it is within the boundaries
         Returns
         -------
         NONE
         '''
+        nextPosition = random.randint(0, 7)
 
-        '''
-        lst[rows][columns(location within the row)]
-            - list containing rows, so the first dimension is the numbering of the rows
 
-        1. 0 1 2...
-        2. 0 1 2...
-                      (which row you're in, which column you're in)
-          1   0 1 2   (+1, -1) (+1, 0) (+1, +1)
-          0   3 o 4   (0, -1)  (0, 0)  (0, +1)
-    row  -1   5 6 7   (-1, -1) (-1, 0) (-1, +1)
-             -1 0 1
-              column
-            o = current position
-        '''
-
-        # TODO
-        #   MAKE THIS MORE ELEGANT
-
-        nextPosition = random.randint(0, 6)
 
         #(+1, -1)(+1, 0)(+1, +1)
         if nextPosition == 0:
@@ -85,3 +70,23 @@ class Ant:
         if nextPosition == 7:
             self.row += -1
             self.column += 1
+        self.pastPositions.append(Node([self.row, self.column])) #adds the next position in the LinkedList
+
+    def releaseScent(self):
+        return
+
+
+'''
+        lst[rows][columns(location within the row)]
+            - list containing rows, so the first dimension is the numbering of the rows
+
+        1. 0 1 2...
+        2. 0 1 2...
+                      (which row you're in, which column you're in)
+          1   0 1 2   (+1, -1) (+1, 0) (+1, +1)
+          0   3 o 4   (0, -1)  (0, 0)  (0, +1)
+    row  -1   5 6 7   (-1, -1) (-1, 0) (-1, +1)
+             -1 0 1
+              column
+            o = current position
+        '''
