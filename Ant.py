@@ -1,6 +1,6 @@
 import random
 from LinkedLists import Node, DLL
-
+import World
 
 class Ant:
     '''
@@ -21,11 +21,12 @@ class Ant:
     #       A. Releases a "tracker" after every iteration ("life") of the simulation
     #
 
-    def __init__(self, row, column, pastPositions = None):
+    def __init__(self, row, column, thisWorld: World, pastPositions = None):
         self.row = row
         self.column = column
+        self.thisWorld = thisWorld
         self.pastPositions = DLL()
-        self.pastPositions.append(Node([self.row, self.column]))
+        self.pastPositions.append(Node([thisWorld.worldGrid[int(self.row)][int(self.column)]]))
 
     def nextPosition(self):
         '''
@@ -70,10 +71,11 @@ class Ant:
         if nextPosition == 7:
             self.row += -1
             self.column += 1
-        self.pastPositions.append(Node([self.row, self.column])) #adds the next position in the LinkedList
+        self.pastPositions.append(self.thisWorld.worldGrid[int(self.row)][int(self.column)]) #adds the next position in the LinkedList
+        self.releaseScent
 
     def releaseScent(self):
-        return
+        self.pastPositions.tail.scentConcentration += 10
 
 
 '''
