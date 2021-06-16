@@ -71,7 +71,6 @@ class Ant:
         if nextPosition == 7:
             self.row += -1
             self.column += 1
-        self.pastPositions.append(self.thisWorld.worldGrid[int(self.row)][int(self.column)]) #adds the next position in the LinkedList
         self.releaseScent
 
     def releaseScent(self):

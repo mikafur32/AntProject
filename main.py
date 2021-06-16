@@ -1,7 +1,6 @@
-from Ant import Ant
-from World import World
+import World
 from graphics import *
-
+import time
 
 def main():
     print("")
@@ -9,14 +8,16 @@ def main():
 
 if __name__ == "__main__":
     main()
-    world = World(10, 10, 1)
-    win = GraphWin("World", 100, 100) # create 100 x 100 pixel page
+    world = World.World(50, 50, 5)
+    win = GraphWin("World", 1000, 900) # create 100 x 100 pixel page
+    ant = Circle(Point(500, 450), 5)
 
 
 
-    while(True):
 
-        print(str(world))
-        world.nextGeneration()
+    world.toString(win,ant)
+    while True:
+        world.nextGeneration(ant, win)
+        time.sleep(0.25)
 
     win.close()  # Close window when done

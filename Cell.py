@@ -1,5 +1,5 @@
 from Ant import Ant
-from World import World
+import World
 from graphics import *
 
 class Cell:

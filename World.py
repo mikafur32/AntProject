@@ -3,6 +3,8 @@ from graphics import *
 import Cell
 class World:
 
+    # TODO
+    #   Separate display and logic
 
     def __init__(self, x_rows, y_columns, numAnts):
         '''
@@ -26,39 +28,43 @@ class World:
         '''
         self.x_rows = x_rows
         self.y_columns = y_columns
-        self.worldGrid = [[Cell() for x in range(x_rows)] for i in range(y_columns)]
-        """
-        incrementing 0...x to indicate the strength of the trail
-        
-        build rating of most direct path back
-        
-        set of ants map the area - know the paths they took back, thus together they have a more robust thought of the area
-        
-        w/ no info, take direct path back, 
-                if intersect another ant path, know the 
-            
-            dijkstra's shortest path
-        """
-        #TODO
-        #   scent value +100 est , decrement
-        #   RULES FOR ANTS
+        self.worldGrid = [[Cell.Cell() for x in range(x_rows)] for i in range(y_columns)]
+
+
 
         self.numAnts = numAnts
-        self.antList = [Ant(x_rows / 2,y_columns / 2 )] * numAnts # middle of the grid
+        self.antList = [Ant.Ant(x_rows / 2,y_columns / 2, self)] * numAnts # middle of the grid
 
-    def nextGeneration(self):
+    def nextGeneration(self, antObject, graphWin):
         '''Updates each ant in antList, calling nextPosition on each ant in the list.'''
 
         for ants in self.antList:
             self.worldGrid[int(ants.row)][int(ants.column)].hasAnt = False
-            currentAntPostion = ants.getCurrentPosition
+
+            positionBefore_X = ants.row
+            positionBefore_Y = ants.column # gathers positional data for the generation of the antObject
 
             ants.nextPosition()
-            while not self.isValidPosition(ants):
-                ants.pastPositions.remove(ants.pastPositions.size - 1) #remove last entry
+
+            positionAfter_X = ants.row
+            positionAfter_Y = ants.column
+
+            while not self.isValidPosition(ants): #verifies the position of the ant
                 ants.nextPosition()
+                positionAfter_X = ants.row
+                positionAfter_Y = ants.column
+
+            ants.pastPositions.append(ants.thisWorld.worldGrid[int(ants.row)][int(ants.column)])  # adds the next position in the LinkedList
 
             self.worldGrid[int(ants.row)][int(ants.column)].hasAnt = True
+
+            ############ MOVEMENT MECHANICS ############
+            point = antObject.getCenter()
+            point.draw(graphWin)
+            ## Draw scent marker
+
+            antObject.move((positionBefore_X - positionAfter_X) * 5, (positionBefore_Y - positionAfter_Y) * 5)
+            #Moves the ant n pixels
 
     def isValidPosition(self, ant):
         '''
@@ -81,17 +87,23 @@ class World:
         '''Verifies the presence of an ant given a row and column and returns a boolean.'''
         return self.worldGrid[row][column].hasAnt
 
-    def __str__(self):
+    def toString(self,graphWin, antObject):
+
+        antObject.draw(graphWin)
+
+
+
+
         '''A Conway's Game of Life inspired row x column grid containing "live" cells/ants and "non-living" cells.'''
-        string = ""
-        for row in range(self.x_rows):
-            for column in range(self.y_columns):
-                if self.containsAnt(row,column):
-                    string += "\u2588" + "\u2588"
-                else:
-                    string += "--"
-            string += "\n"
-        return string
+        ##string = ""
+        ##for row in range(self.x_rows):
+        ##    for column in range(self.y_columns):
+        ##        if self.containsAnt(row,column):
+        ##            string += "\u2588" + "\u2588"
+        ##        else:
+        ##            string += "--"
+        ##    string += "\n"
+        ##return string
 
 
 ''' GRAPHICS
@@ -103,3 +115,16 @@ class World:
         win.close()    # Close window when done
                                                                                     
 '''
+
+"""
+        incrementing 0...x to indicate the strength of the trail
+
+        build rating of most direct path back
+
+        set of ants map the area - know the paths they took back, thus together they have a more robust thought of the area
+
+        w/ no info, take direct path back, 
+                if intersect another ant path, know the 
+
+            dijkstra's shortest path
+        """
