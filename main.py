@@ -9,7 +9,7 @@ def main():
 if __name__ == "__main__":
     main()
     world = World.World(50, 50, 5)
-    win = GraphWin("World", 1000, 900) # create 100 x 100 pixel page
+    win = GraphWin("World", 1000, 900) # create 1000 x 900 pixel page
     ant = Circle(Point(500, 450), 5)
 
 

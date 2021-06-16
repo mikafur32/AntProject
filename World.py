@@ -5,6 +5,7 @@ class World:
 
     # TODO
     #   Separate display and logic
+    #   MVC Model view controller
 
     def __init__(self, x_rows, y_columns, numAnts):
         '''
@@ -63,7 +64,7 @@ class World:
             point.draw(graphWin)
             ## Draw scent marker
 
-            antObject.move((positionBefore_X - positionAfter_X) * 5, (positionBefore_Y - positionAfter_Y) * 5)
+            antObject.move(( positionBefore_X - positionAfter_X) * 5, (positionBefore_Y - positionAfter_Y) * 5)
             #Moves the ant n pixels
 
     def isValidPosition(self, ant):
