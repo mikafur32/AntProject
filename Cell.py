@@ -7,10 +7,12 @@ class Cell:
         self.currentAnts = currentAnts
         self.hasAnt = currentAnts != None
         self.scentConcentration = scentConcentration
-
+        #self.hasFood =
         '''
         Parameters
         ----------
+        currentAnts : int
+            Number of ants in the current cell.
         hasAnt : boolean
             Determines if the cell contains an ant in this generation.
         scentConcentration : int

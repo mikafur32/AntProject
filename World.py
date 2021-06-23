@@ -84,6 +84,7 @@ class World:
             return False
         return True
 
+
     def containsAnt(self,row,column):
         '''Verifies the presence of an ant given a row and column and returns a boolean.'''
         return self.worldGrid[row][column].hasAnt
@@ -95,28 +96,13 @@ class World:
 
 
 
-        '''A Conway's Game of Life inspired row x column grid containing "live" cells/ants and "non-living" cells.'''
-        ##string = ""
-        ##for row in range(self.x_rows):
-        ##    for column in range(self.y_columns):
-        ##        if self.containsAnt(row,column):
-        ##            string += "\u2588" + "\u2588"
-        ##        else:
-        ##            string += "--"
-        ##    string += "\n"
-        ##return string
 
 
-''' GRAPHICS
-    def toString(self):
-        win = GraphWin("My Circle", 100, 100)
-        c = Circle(Point(50,50), 10)
-        c.draw(win)
-        win.getMouse() # Pause to view result
-        win.close()    # Close window when done
-                                                                                    
-'''
 
+
+
+
+##################### NOTES #######################
 """
         incrementing 0...x to indicate the strength of the trail
 

@@ -38,7 +38,13 @@ class Ant:
         -------
         NONE
         '''
-        nextPosition = random.randint(0, 7)
+        concentrations = self.getScentConcentration()
+        total = concentrations[0] + concentrations[1] + concentrations[2] + concentrations[3] + concentrations[4] + concentrations[5] + concentrations[6] + concentrations[7]
+
+        nextPosition = random.choices([0,1,2,3,4,5,6,7], [concentrations[0] / total, concentrations[1] / total, concentrations[2] / total,
+                                                          concentrations[3] / total, concentrations[4] / total, concentrations[5] / total,
+                                                          concentrations[6] / total, concentrations[7]/ total], 1)
+        # Weighted probability
 
 
 
@@ -75,6 +81,22 @@ class Ant:
 
     def releaseScent(self):
         self.pastPositions.tail.scentConcentration += 10
+
+    def getScentConcentration(self):
+        '''
+        Querys the world for the surrounding cells' scentConcentration value.
+        Returns
+        -------
+        The eight surrounding cells scent value.
+        '''
+
+        return {0: self.thisWorld.worldGrid(self.row + 1, self.column -1).scentConcentration, 1:self.thisWorld.worldGrid(self.row + 1, self.column).scentConcentration,
+                            2:self.thisWorld.worldGrid(self.row + 1, self.column + 1).scentConcentration, 3:self.thisWorld.worldGrid(self.row + 0, self.column - 1).scentConcentration,
+                            4:self.thisWorld.worldGrid(self.row + 0, self.column + 1).scentConcentration, 5:self.thisWorld.worldGrid(self.row - 1, self.column - 1).scentConcentration,
+                            6:self.thisWorld.worldGrid(self.row - 1, self.column - 0).scentConcentration, 7:self.thisWorld.worldGrid(self.row - 1, self.column + 1).scentConcentration}
+
+
+
 
 
 '''
